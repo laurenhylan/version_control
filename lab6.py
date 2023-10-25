@@ -17,8 +17,24 @@ def input_encode(encode_input):
         else:
             encode_digit = input_digit   # else, value (+3)
             encode_digit += 3
-            password_encoded = str(encode_digit)
+            password_encoded += str(encode_digit)
     return password_encoded
+
+def decode(encoded_password):
+    decoded_password = ''
+
+    for digit in str(encoded_password):
+        digit = int(digit)
+        if digit >= 3:
+            decoded_password += str(digit - 3)
+        elif digit == 2:
+            decoded_password += '9'
+        elif digit == 1:
+            decoded_password += '8'
+        elif digit == 0:
+            decoded_password += '7'
+
+    return decoded_password
 
 
 if __name__ == '__main__':   # version control menu ENCODE
@@ -34,9 +50,12 @@ if __name__ == '__main__':   # version control menu ENCODE
 
         if menu_option == 1:
             encoder = input("Please enter your password to encode: ")
+            encoded_password = input_encode(encoder)
+            print(
+                f'The encoded password is {encoded_password}, and the original password is {encoder}.')
             print("Your password has been encoded and stored!\n")
         elif menu_option == 2:
-            encoded_password = input_encode(encoder)
-            print(f'The encoded password is {encoded_password}, and the original password is {encoder}.')
+            decoded_password = decode(encoded_password)
+            print(f"The encoded password is {encoded_password}, and the original password is {decoded_password}.")
         elif menu_option == 3:
             control_menu = False
